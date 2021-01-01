@@ -1,7 +1,7 @@
 import os
 import requests
 
-
+#Função para importar os dados sobre filmes populares da API do TMDB
 def get_results():
     results_list = []
     url = 'https://api.themoviedb.org/3/movie/popular?api_key={0}&language=pt-br&page=1'.format(os.getenv('API_KEY'))
