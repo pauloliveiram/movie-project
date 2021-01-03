@@ -248,7 +248,7 @@
 				{% for filme in filmes %}
 	    		<div class="movie-item">
 	    			<div class="mv-img">
-	    				<a><img src="{{filme.image_url}}" alt="" width="285" height="437"></a>
+	    				<a href="filme/{{filme.id}}"><img src="{{filme.image_url}}" alt="" width="285" height="437"></a>
 	    			</div>
 	    			<div class="title-in">
 	    				<div class="cate">
@@ -257,9 +257,6 @@
 	    				<h6><a href="filme/{{filme.id}}">{{filme.title}}</a></h6>
 	    				<p><i class="ion-android-star"></i><span>{{filme.vote_average}}</span> /10</p>
 					</div>
-					<form method='GET'>
-					<button class="btn btn-outline-secondary" type="button" id="button-addon1" name="to_watch_movie">Para Assistir: {{filme.to_watch}}</button>
-					</form>
 				</div>
 				{% endfor %}
 				<!--<div class="movie-item">
@@ -362,12 +359,12 @@
 	    </div>
 	</div>
 </div>
-<!-- <div class="movie-items">
+<div class="movie-items">
 	<div class="container">
 		<div class="row ipad-width">
 			<div class="col-md-8">
 				<div class="title-hd">
-					<h2>in theater</h2>
+					<h2>Watchlist</h2>
 					<a href="#" class="viewall">View all <i class="ion-ios-arrow-right"></i></a>
 				</div>
 				<div class="tabs">
@@ -381,21 +378,25 @@
 				        <div id="tab1" class="tab active">
 				            <div class="row">
 				            	<div class="slick-multiItem">
+									{% for filme in filmes %}
+									{% if filme.to_watch is True %}
 				            		<div class="slide-it">
 				            			<div class="movie-item">
 					            			<div class="mv-img">
-					            				<img src="{% static 'images/uploads/mv-item1.jpg' %}" alt="" width="185" height="284">
+					            				<img src="{{filme.image_url}}" alt="" width="185" height="284">
 					            			</div> 
 					            			<div class="hvr-inner">
-					            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+					            				<a href="filme/{{filme.id}}"> Veja mais <i class="ion-android-arrow-dropright"></i> </a>
 					            			</div>
 					            			<div class="title-in">
-					            				<h6><a href="#">Interstellar</a></h6>
-					            				<p><i class="ion-android-star"></i><span>7.4</span> /10</p>
+					            				<h6><a href="#">{{filme.title}}</a></h6>
+					            				<p><i class="ion-android-star"></i><span>{{filme.vote_average}}</span> /10</p>
 					            			</div>
 					            		</div>
-				            		</div>
-									<div class="slide-it">
+									</div>
+									{% endif %}
+									{% endfor %}
+								<!--	<div class="slide-it">
 										<div class="movie-item">
 					            			<div class="mv-img">
 					            				<img src="{% static 'images/uploads/mv-item2.jpg' %}" alt="" width="185" height="284">
@@ -506,7 +507,7 @@
 					            				<p><i class="ion-android-star"></i><span>7.4</span> /10</p>
 					            			</div>
 					            		</div>
-				            		</div>
+				            		</div> -->
 				            	</div>
 				            </div>
 				        </div>
@@ -519,7 +520,7 @@
 					            				<img src="{% static 'images/uploads/mv-item5.jpg' %}" alt="" width="185" height="284">
 					            			</div>
 					            			<div class="hvr-inner">
-					            				<a  href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
+					            				<a href="moviesingle.html"> Read more <i class="ion-android-arrow-dropright"></i> </a>
 					            			</div>
 					            			<div class="title-in">
 					            				<h6><a href="#">Interstellar</a></h6>
@@ -740,7 +741,7 @@
 			       	 	</div>
 				    </div>
 				</div>
-				<div class="title-hd">
+			<!--	<div class="title-hd">
 					<h2>on tv</h2>
 					<a href="#" class="viewall">View all <i class="ion-ios-arrow-right"></i></a>
 				</div>
@@ -1224,7 +1225,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</div>
 </div>
 
