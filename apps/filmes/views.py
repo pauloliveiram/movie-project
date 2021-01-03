@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from .models import Filmes
+from .forms import WatchlistForm
 
 '''class GetResults(TemplateView):
     template_name = 'index.html'
@@ -17,6 +18,30 @@ from .models import Filmes
 def index(request):
     filmes = Filmes.objects.all()
     context = {
-        'filmes': filmes
+        'filmes': filmes,
     }
     return render(request, 'index.html', context)
+
+def single_movie(request, id):
+    filmes = Filmes.objects.get(id=id)
+    context = {
+        'filmes': filmes,
+    }
+    return render(request, 'single_movie.html', context)
+
+def update_watchlist(request, id):
+    try:
+        filme = Filmes.objects.get(id=id)
+    except Filmes.DoesNotExist:
+        return redirect('index')
+
+    filme_form = WatchlistForm(request.POST or None, instance=filme)
+    if filme_form.is_valid():
+        filme_form.save()
+        return redirect('index')
+    
+    context = {
+        'filme_form': filme_form,
+        'filme':filme,
+    }
+    return render(request, 'update_watchlist.html', context)
