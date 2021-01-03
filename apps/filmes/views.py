@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from .models import Filmes
 from .forms import WatchlistForm
+from .utils import normalize
 
 '''class GetResults(TemplateView):
     template_name = 'index.html'
@@ -17,6 +18,10 @@ from .forms import WatchlistForm
 
 def index(request):
     filmes = Filmes.objects.all()
+    busca = request.GET.get('search')
+    if busca:
+        query = normalize(busca)
+        filmes = Filmes.objects.filter(title__icontains = query)
     context = {
         'filmes': filmes,
     }
