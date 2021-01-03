@@ -17,6 +17,9 @@ from .forms import WatchlistForm
 
 def index(request):
     filmes = Filmes.objects.all()
+    busca = request.GET.get('search')
+    if busca:
+        filmes = Filmes.objects.filter(title__icontains = busca)
     context = {
         'filmes': filmes,
     }
