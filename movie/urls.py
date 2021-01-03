@@ -19,5 +19,7 @@ from filmes import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index, name='index')
+    path('', views.index, name='index'),
+    path('filme/<int:id>', views.single_movie, name='single_movie'),
+    path('filme/update/<int:id>', views.update_watchlist, name='update_watchlist'),
 ]
