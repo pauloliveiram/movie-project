@@ -38,3 +38,11 @@ class TestFilmesView(TestCase):
         client = Client()
         response = client.get(reverse('index'))
         self.assertTemplateUsed(response, 'index.html')
+
+    def search_index(self):
+        client = Client()
+        response = client.get('')
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(response.busca == True)
+        self.assertTrue(response.busca in response.context)
+        self.assertContains(self, response, response.busca, status_code=200)
