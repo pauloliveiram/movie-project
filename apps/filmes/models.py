@@ -14,10 +14,6 @@ class Filmes(models.Model):
     popularity = models.DecimalField('Popularidade', max_digits=10, decimal_places=5)
     vote_count = models.IntegerField('Quantidade de avaliações')
     to_watch = models.BooleanField('Filme na Watchlist?', default=False)
-    slug = models.SlugField('Slug', max_length=200)
-
-    def get_absolute_url(self):
-        return reverse('filme', kwargs={'slug': self.slug})
 
     def __str__(self):
         return self.title
