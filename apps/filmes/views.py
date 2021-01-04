@@ -16,7 +16,12 @@ from .utils import normalize
         }
         return context   '''     
 
+
 def index(request):
+    context = {}
+    return render(request, 'index.html', context)
+
+def user_inicio(request):
     filmes = Filmes.objects.all()
     busca = request.GET.get('search')
     if busca:
@@ -25,7 +30,7 @@ def index(request):
     context = {
         'filmes': filmes,
     }
-    return render(request, 'index.html', context)
+    return render(request, 'user_inicio.html', context)
 
 def single_movie(request, id):
     filmes = Filmes.objects.get(id=id)
