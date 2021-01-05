@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from django.conf import settings
 
 class Filmes(models.Model):
     
@@ -13,7 +14,6 @@ class Filmes(models.Model):
     original_language = models.CharField('Idioma Original', max_length=10)
     popularity = models.DecimalField('Popularidade', max_digits=10, decimal_places=5)
     vote_count = models.IntegerField('Quantidade de avaliações')
-    to_watch = models.BooleanField('Filme na Watchlist?', default=False)
 
     def __str__(self):
         return self.title
@@ -21,3 +21,23 @@ class Filmes(models.Model):
     class Meta:
         verbose_name = 'Filme'
         verbose_name_plural = 'Filmes'
+
+class Watchlist(models.Model):
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='Usuário', related_name='Watchlist', on_delete=models.CASCADE)
+    movie = models.ForeignKey(Filmes, verbose_name='Filme', related_name='Watchlist', on_delete=models.CASCADE)
+    to_watch = models.BooleanField('Filme na Watchlist?', default=False)
+    watched = models.BooleanField('Filme assistido?', default=False)
+
+    def active_to_watch(self):
+        self.to_watch = True
+        self.save()
+
+    def active_watched(self):
+        self.watched = True
+        self.save()
+
+    class Meta:
+        verbose_name = 'Watchlist'
+        verbose_name_plural = 'Watchlist'
+        unique_together = (('user', 'movie'),)

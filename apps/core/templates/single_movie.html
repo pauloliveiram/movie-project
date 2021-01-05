@@ -269,9 +269,20 @@
 				<div class="movie-single-ct main-content">
 					<h1 class="bd-hd">{{filmes.title}}</h1>
 					<div class="social-btn">
-						<a href="update/{{filmes.id}}" class="parent-btn"><i class="ion-heart"></i> Add to Favorite</a>
+						{% if watchlist %}
+							<a href="update/{{filmes.id}}" class="parent-btn"><i class="ion-heart"></i> Retirar da Watchlist</a>
+							{% if watchlist.watched is true %}
+								<a href="watched/{{filmes.id}}" class="parent-btn"><i class="ion-android-share-alt"></i>Marcar Como Assistido</a>
+							{% else %}
+								<a href="watched/{{filmes.id}}" class="parent-btn"><i class="ion-android-share-alt"></i>Filme Assistido</a>
+							{% endif %}
+
+						{% else %}
+							<a href="update/{{filmes.id}}" class="parent-btn"><i class="ion-heart"></i> Adicionar à Watchlist</a>	
+						{% endif %}
+						
 						<div class="hover-bnt">
-							<a href="#" class="parent-btn"><i class="ion-android-share-alt"></i>share</a>
+							
 							<div class="hvr-item">
 								<a href="#" class="hvr-grow"><i class="ion-social-facebook"></i></a>
 								<a href="#" class="hvr-grow"><i class="ion-social-twitter"></i></a>

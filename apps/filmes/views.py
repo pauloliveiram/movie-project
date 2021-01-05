@@ -1,57 +1,63 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView
-from .models import Filmes
+from .models import Filmes, Watchlist
 from .forms import WatchlistForm
 from .utils import normalize
-
-'''class GetResults(TemplateView):
-    template_name = 'index.html'
-    def get_context_data(self, *args, **kwargs):
-        results = get_results()
-        if request.GET.get('to_watch_movie'):
-            results['count']['to_watch'] = True
-            print('Esta true')        
-        context = {
-            'results': results,
-        }
-        return context   '''     
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 
-def index(request):
-    context = {}
-    return render(request, 'index.html', context)
-
+@login_required
 def user_inicio(request):
     filmes = Filmes.objects.all()
+    watchlist = Watchlist.objects.filter(user=request.user, movie__in=filmes)
+
     busca = request.GET.get('search')
     if busca:
         query = normalize(busca)
         filmes = Filmes.objects.filter(title__icontains = query)
+
     context = {
         'filmes': filmes,
+        'watchlist': watchlist,
     }
     return render(request, 'user_inicio.html', context)
 
+@login_required
 def single_movie(request, id):
     filmes = Filmes.objects.get(id=id)
+    movies_filter = Filmes.objects.filter(id=id)
+    watchlist = Watchlist.objects.filter(user=request.user, movie__in=movies_filter)
     context = {
         'filmes': filmes,
+        'watchlist': watchlist,
     }
     return render(request, 'single_movie.html', context)
 
-def update_watchlist(request, id):
-    try:
-        filme = Filmes.objects.get(id=id)
-    except Filmes.DoesNotExist:
-        return redirect('index')
+@login_required
+def watchlist(request, id):
+    movie = get_object_or_404(Filmes, id=id)
+    watchlist, created = Watchlist.objects.get_or_create(
+        user=request.user, movie=movie
+    )
+    if created:
+        watchlist.active_to_watch()
+        messages.success(request, 'Você foi inscrito no curso com sucesso')
+    else:
+        messages.info(request, 'Você já está inscrito no curso')
 
-    filme_form = WatchlistForm(request.POST or None, instance=filme)
-    if filme_form.is_valid():
-        filme_form.save()
-        return redirect('index')
-    
-    context = {
-        'filme_form': filme_form,
-        'filme':filme,
-    }
-    return render(request, 'update_watchlist.html', context)
+    return redirect('single_movie')
+
+@login_required
+def watched(request, id):
+    movie = get_object_or_404(Filmes, id=id)
+    watched, created = Watchlist.objects.get_or_create(
+        user=request.user, movie=movie
+    )
+    if created:
+        watched.active_watched()
+        messages.success(request, 'Você foi inscrito no curso com sucesso')
+    else:
+        messages.info(request, 'Você já está inscrito no curso')
+
+    return redirect('single_movie')
