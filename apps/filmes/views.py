@@ -3,24 +3,10 @@ from django.views.generic import TemplateView
 from .models import Filmes
 from .forms import WatchlistForm
 from .utils import normalize
-
-'''class GetResults(TemplateView):
-    template_name = 'index.html'
-    def get_context_data(self, *args, **kwargs):
-        results = get_results()
-        if request.GET.get('to_watch_movie'):
-            results['count']['to_watch'] = True
-            print('Esta true')        
-        context = {
-            'results': results,
-        }
-        return context   '''     
+from django.contrib.auth.decorators import login_required
 
 
-def index(request):
-    context = {}
-    return render(request, 'index.html', context)
-
+@login_required
 def user_inicio(request):
     filmes = Filmes.objects.all()
     busca = request.GET.get('search')
@@ -32,6 +18,7 @@ def user_inicio(request):
     }
     return render(request, 'user_inicio.html', context)
 
+@login_required
 def single_movie(request, id):
     filmes = Filmes.objects.get(id=id)
     context = {
@@ -39,6 +26,7 @@ def single_movie(request, id):
     }
     return render(request, 'single_movie.html', context)
 
+@login_required
 def update_watchlist(request, id):
     try:
         filme = Filmes.objects.get(id=id)

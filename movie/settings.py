@@ -132,4 +132,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 10000
 
+LOGIN_URL = 'entrar'
+LOGIN_REDIRECT_URL = 'index'
+LOGOUT_URL = 'logout'
 
+AUTH_USER_MODEL = 'usuarios.User'
+AUTHENTICATION_BACKENDS = ['usuarios.backends.EmailBackend']
