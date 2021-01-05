@@ -382,19 +382,19 @@
 				        <div id="tab1" class="tab active">
 				            <div class="row">
 				            	<div class="slick-multiItem">
-									{% for filme in filmes %}
-									{% if filme.to_watch is True %}
+									{% for watchlist in watchlist %}
+									{% if watchlist.to_watch is True %}
 				            		<div class="slide-it">
 				            			<div class="movie-item">
 					            			<div class="mv-img">
-					            				<img src="{{filme.image_url}}" alt="" width="185" height="284">
+					            				<img src="{{watchlist.movie.image_url}}" alt="" width="185" height="284">
 					            			</div> 
 					            			<div class="hvr-inner">
-					            				<a href="filme/{{filme.id}}"> Veja mais <i class="ion-android-arrow-dropright"></i> </a>
+					            				<a href="filme/{{watchlist.movie.id}}"> Veja mais <i class="ion-android-arrow-dropright"></i> </a>
 					            			</div>
 					            			<div class="title-in">
-					            				<h6><a href="#">{{filme.title}}</a></h6>
-					            				<p><i class="ion-android-star"></i><span>{{filme.vote_average}}</span> /10</p>
+					            				<h6><a href="#">{{watchlist.movie.title}}</a></h6>
+					            				<p><i class="ion-android-star"></i><span>{{watchlist.movie.vote_average}}</span> /10</p>
 					            			</div>
 					            		</div>
 									</div>

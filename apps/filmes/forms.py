@@ -1,8 +1,8 @@
 from django import forms
 from django.conf import settings
-from .models import Filmes
+from .models import Watchlist
 
 class WatchlistForm(forms.ModelForm):
     class Meta:
-        model = Filmes
+        model = Watchlist
         fields = ['to_watch']
