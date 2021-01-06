@@ -11,7 +11,7 @@
 Para ativar o ambiente virtual:
 
 					  (Windows) nome_do_ambiente_virtual\Scripts\activate
-					  (Linux) source nome_do_ambiente_virtual\bin\activate
+					  (Linux) source nome_do_ambiente_virtual/bin/activate
 					
 Após ativar o ambiente, é necessário instalar as dependências. Portanto execute:
 	
