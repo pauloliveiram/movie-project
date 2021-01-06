@@ -2,7 +2,7 @@
 
 ### Instruções para rodar o projeto
  
- Para rodar o projeto, é necessário ter o Python e o gerenciador de pacoter Pip instalados no computador. Após clonar o repositório, é necessário criar um ambiente virtual para o gerenciamento das dependências do projeto
+ Para rodar o projeto, é necessário ter o Python e o gerenciador de pacoter Pip instalados no computador. Após clonar o repositório, é necessário criar um ambiente virtual para o gerenciamento das dependências do projeto.
 
  Então, para instalar o ambiente virtual, execute: 
  
@@ -13,7 +13,7 @@ Para ativar o ambiente virtual:
 					  (Windows) nome_do_ambiente_virtual\Scripts\activate
 					  (Linux) source nome_do_ambiente_virtual/bin/activate
 					
-Após ativar o ambiente, é necessário instalar as dependências. Portanto execute:
+Após ativar o ambiente, é necessário instalar as dependências. Portanto, dentro da pasta do projeto, execute:
 	
 					    	   pip install -r requirements.txt
 								
