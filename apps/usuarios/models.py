@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, UserManager, PermissionsMixin
 from django.core import validators
+from perfil.models import Perfil
+
 
 class User(AbstractBaseUser, PermissionsMixin):
 
@@ -11,6 +13,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     birth_date = models.DateTimeField('Data de Nascimento', null=True)
     is_staff = models.BooleanField('Membro da equipe', default=False)
     is_superuser = models.BooleanField('Admin do sistema', default=False)
+
+    perfil = models.ForeignKey(Perfil, verbose_name='Perfil', related_name='Perfil', on_delete=models.CASCADE, blank=True, null=True)
 
     objects = UserManager()
 

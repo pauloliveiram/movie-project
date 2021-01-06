@@ -38,9 +38,8 @@
                 <div class="form">
                   <form class="login-form" method='POST'>
                       {% csrf_token %}
-                    {{cadastro_form}}
-                    <button>Cadastre-se</button>
-                    <p class="message">Já está cadastrado? <a href="{% url 'conta:entrar' %}">Acesse a sua conta</a></p>
+                    {{perfil_form}}
+                    <button>Atualizar</button>
                   </form>
                 </div>
               </div>

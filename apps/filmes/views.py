@@ -5,11 +5,13 @@ from .forms import WatchlistForm
 from .utils import normalize
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from perfil.models import Perfil
 
 
 @login_required
-def user_inicio(request):
+def user_inicio(request, id):
     filmes = Filmes.objects.all()
+    perfil = Perfil.objects.get(id=id)
     watchlist = Watchlist.objects.filter(user=request.user, movie__in=filmes)
 
     busca = request.GET.get('search')
@@ -20,14 +22,19 @@ def user_inicio(request):
     context = {
         'filmes': filmes,
         'watchlist': watchlist,
+        'perfil': perfil,
     }
     return render(request, 'user_inicio.html', context)
+
 
 @login_required
 def single_movie(request, id):
     filmes = Filmes.objects.get(id=id)
     movies_filter = Filmes.objects.filter(id=id)
+
+    perfil = Perfil.objects.filter(user=request.user)
     watchlist = Watchlist.objects.filter(user=request.user, movie__in=movies_filter)
+
     context = {
         'filmes': filmes,
         'watchlist': watchlist,
@@ -40,13 +47,22 @@ def watchlist(request, id):
     watchlist, created = Watchlist.objects.get_or_create(
         user=request.user, movie=movie
     )
-    if created:
+    if watched:
         watchlist.active_to_watch()
-        messages.success(request, 'Você foi inscrito no curso com sucesso')
-    else:
-        messages.info(request, 'Você já está inscrito no curso')
 
-    return redirect('single_movie')
+
+    return redirect('filme:single_movie', id)
+
+@login_required
+def excluir_watchlist(request, id):
+    movie = get_object_or_404(Filmes, id=id)
+    watched = Watchlist.objects.get(
+        user=request.user, movie=movie
+    )
+    if watched:
+        watched.deactivate_watched()
+
+    return redirect('filme:single_movie', id)
 
 @login_required
 def watched(request, id):
@@ -54,10 +70,7 @@ def watched(request, id):
     watched, created = Watchlist.objects.get_or_create(
         user=request.user, movie=movie
     )
-    if created:
+    if watched:
         watched.active_watched()
-        messages.success(request, 'Você foi inscrito no curso com sucesso')
-    else:
-        messages.info(request, 'Você já está inscrito no curso')
 
-    return redirect('single_movie')
+    return redirect('filme:single_movie', id)

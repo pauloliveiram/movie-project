@@ -10,7 +10,7 @@ def login_user(request):
     login_form = LoginForm()
 
     if request.user.is_authenticated:
-        return redirect('user_inicio')
+        return redirect('perfil:lista_perfis')
 
     else:
         if request.method == 'POST':
@@ -21,7 +21,7 @@ def login_user(request):
 
             if user is not None:
                 login(request, user)
-                return redirect('entrar')
+                return redirect('conta:entrar')
 
         else:
             login_form = LoginForm()
@@ -35,7 +35,7 @@ def login_user(request):
 @login_required
 def logout_user(request):
     logout(request)
-    return redirect('index')
+    return redirect('core:index')
 
 def cadastro_user(request):
     if request.method == 'POST':
@@ -46,7 +46,7 @@ def cadastro_user(request):
                 username=user.username, password=cadastro_form.cleaned_data['password1']
             )
             login(request, user)
-            return redirect('entrar')
+            return redirect('conta:entrar')
     else:
         cadastro_form = CadastroForm()
     context = {
