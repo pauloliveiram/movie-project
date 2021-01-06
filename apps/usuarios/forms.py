@@ -52,5 +52,5 @@ class CadastroForm(forms.ModelForm):
             'first_name': forms.TextInput(attrs={'type': 'text', 'placeholder': 'Nome','required': 'required'}),
             'last_name': forms.TextInput(attrs={'type': 'text', 'placeholder': 'Sobrenome','required': 'required'}),
             'email': forms.TextInput(attrs={'type': 'text', 'placeholder': 'E-mail','required': 'required'}),
-            'birth_date': forms.DateTimeInput(attrs={'placeholder': 'Data de Nascimento','required': 'required'}),
+            'birth_date': forms.DateTimeInput(attrs={'type':'datetime-local','placeholder': 'Data de Nascimento','required': 'required'}),
             }

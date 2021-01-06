@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.conf import settings
+from perfil.models import Perfil
 
 class Filmes(models.Model):
     
@@ -24,7 +25,8 @@ class Filmes(models.Model):
 
 class Watchlist(models.Model):
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='Usuário', related_name='Watchlist', on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='Usuário', related_name='Watchlist', on_delete=models.CASCADE, blank=True, null=True)
+    perfil = models.ForeignKey(Perfil, verbose_name='Perfil', related_name='Watchlist', on_delete=models.CASCADE, blank=True, null=True)
     movie = models.ForeignKey(Filmes, verbose_name='Filme', related_name='Watchlist', on_delete=models.CASCADE)
     to_watch = models.BooleanField('Filme na Watchlist?', default=False)
     watched = models.BooleanField('Filme assistido?', default=False)
@@ -32,12 +34,20 @@ class Watchlist(models.Model):
     def active_to_watch(self):
         self.to_watch = True
         self.save()
+    
+    def deactivate_to_watch(self):
+        self.to_watch = False
+        self.save()
 
     def active_watched(self):
         self.watched = True
         self.save()
 
+    def deactivate_watched(self):
+        self.watched = False
+        self.save()
+
     class Meta:
         verbose_name = 'Watchlist'
         verbose_name_plural = 'Watchlist'
-        unique_together = (('user', 'movie'),)
+        unique_together = (('perfil', 'movie'),)
