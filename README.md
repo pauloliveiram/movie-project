@@ -8,9 +8,9 @@
 O Movie Project é uma aplicação fullstack web que consiste em uma plataforma para gerenciamento de filmes, em que o usuário dispõe de uma lista de filmes, podendo gerar uma watchlist, uma lista com os filmes que deseja assistir. 
 
 ## Layout web
+![Web 1](https://github.com/pauloliveiram/movie-project/blob/main/assets/img1.png)
 
-
-![2022-12-22-17-05-pauloliveiram.pythonanywhere.com.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/de466edb-3ed2-4ddb-a47d-058d5f2cd2eb/2022-12-22-17-05-pauloliveiram.pythonanywhere.com.png)
+![Web 2](https://github.com/pauloliveiram/movie-project/blob/main/assets/img2.png)
 
 ## Tecnologias utilizadas
 
